@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -104,7 +105,7 @@ func run(cfg config) error {
 	}
 
 	comment := createComment(eventNameToArtifactName(cfg.eventName), analysisResult.Type, analysisResult.Explanation, payload.userLogin)
-	if err := addCommentFn(ctx, payload.parentID, comment); err != nil {
+	if err := addCommentFn(ctx, payload.parentID, strconv.Quote(comment)); err != nil {
 		return err
 	}
 
