@@ -7,9 +7,8 @@ ChatGuard is a GitHub Action designed to leverage ChatGPT for sentiment analysis
 ## Usage
 
 1. Set up Workflow:
-- Create a new workflow file (e.g., .github/workflows/chatguard.yml).
+- Create a new workflow file (e.g., `.github/workflows/chatguard.yml`).
 - Configure the workflow to trigger on events where sentiment analysis is necessary.
-yaml
 
 ```yaml
 name: ChatGuard
