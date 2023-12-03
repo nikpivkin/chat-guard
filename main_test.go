@@ -31,7 +31,7 @@ func TestPayloadFromEvent(t *testing.T) {
 						"title": "Some title",
 						"node_id": "D_kwDOKgkPac4AWfor"
 					},
-					"user": {
+					"sender": {
 						"login": "test"
 					}
 				}`,
@@ -49,7 +49,7 @@ func TestPayloadFromEvent(t *testing.T) {
 						"title": "Some title",
 						"node_id": "D_kwDOKgkPac4AWfor"
 					},
-					"user": {
+					"sender": {
 						"login": "test"
 					}
 				}`,
@@ -67,7 +67,7 @@ func TestPayloadFromEvent(t *testing.T) {
 						"title": "Some title",
 						"node_id": "D_kwDOKgkPac4AWfor"
 					},
-					"user": {
+					"sender": {
 						"login": "test"
 					}
 				}`,
@@ -84,7 +84,7 @@ func TestPayloadFromEvent(t *testing.T) {
 						"title": "Some title",
 						"node_id": "D_kwDOKgkPac4AWfor"
 					},
-					"user": {
+					"sender": {
 						"login": "test"
 					}
 				}`,
@@ -104,7 +104,7 @@ func TestPayloadFromEvent(t *testing.T) {
 					"discussion": {
 						"node_id": "some_id"
 					},
-					"user": {
+					"sender": {
 						"login": "test"
 					}
 				}`,
@@ -124,7 +124,7 @@ func TestPayloadFromEvent(t *testing.T) {
 					"issue": {
 						"node_id": "some_id"
 					},
-					"user": {
+					"sender": {
 						"login": "test"
 					}
 				}`,

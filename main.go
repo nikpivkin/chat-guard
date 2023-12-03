@@ -167,7 +167,7 @@ func payloadFromEvent(eventName string, r io.Reader) (payload, error) {
 		p.parentID = event["discussion"].(map[string]any)["node_id"].(string)
 	}
 
-	if u, ok := event["user"].(map[string]any); ok {
+	if u, ok := event["sender"].(map[string]any); ok {
 		p.userLogin = u["login"].(string)
 	}
 
