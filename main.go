@@ -123,9 +123,7 @@ This %s has been labeled accordingly for further review.
 
 	body = fmt.Sprintf(body, ty, explanation, artifactName, user)
 
-	footer := "\n\n*Note: This message is generated automatically, and the labels were assigned based on the analysis of the %s's content.*"
-
-	footer = fmt.Sprintf(footer, artifactName)
+	footer := "\n\n*Note: This message is generated automatically*"
 	return body + footer
 }
 
