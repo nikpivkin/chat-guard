@@ -95,6 +95,6 @@ Return the answer in json format. Example response:
   "explanation": "The analyzed content exhibits characteristics associated with spam, including excessive use of promotional language and repeated, irrelevant information. This classification is based on linguistic patterns and content structure."
 }
 
-The sentiment field can contain one of two values: negative and positive. If the content has a positive sentiment, leave the type and explanation fields blank.
+The sentiment field can contain one of two values: negative and positive.
 `
 }
