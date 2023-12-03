@@ -104,7 +104,8 @@ func run(cfg config) error {
 		addCommentFn = ghapi.AddDiscussionComment
 	}
 
-	comment := createComment(eventNameToArtifactName(cfg.eventName), analysisResult.Type, analysisResult.Explanation, payload.userLogin)
+	artifactName := eventNameToArtifactName(cfg.eventName)
+	comment := createComment(artifactName, analysisResult.Type, analysisResult.Explanation, payload)
 	if err := addCommentFn(ctx, payload.parentID, strconv.Quote(comment)); err != nil {
 		return err
 	}
@@ -112,16 +113,16 @@ func run(cfg config) error {
 	return nil
 }
 
-func createComment(artifactName string, ty string, explanation string, user string) string {
+func createComment(artifactName string, ty string, explanation string, p payload) string {
 	body := `🛡️ ChatGuard Analysis: The content has been reviewed, and based on sentiment analysis, it has been identified as %s. 
 	
 Explanation: %s
 
-This %s has been labeled accordingly for further review. 
+[This](%s) %s has been labeled accordingly for further review. 
 
 @%s please ensure future contributions align with our community guidelines. Thank you! 🚀`
 
-	body = fmt.Sprintf(body, ty, explanation, artifactName, user)
+	body = fmt.Sprintf(body, ty, explanation, p.url, artifactName, p.user)
 
 	footer := "\n\n*Note: This message is generated automatically*"
 	return body + footer
@@ -129,11 +130,12 @@ This %s has been labeled accordingly for further review.
 
 type payload struct {
 	// Id of the object to which the artefact belongs. For the discussion comment is the discussion, for the discussion itself.
-	parentID  string
-	nodeID    string
-	title     string
-	body      string
-	userLogin string
+	parentID string
+	nodeID   string
+	title    string
+	body     string
+	user     string
+	url      string
 }
 
 func payloadFromEvent(eventName string, r io.Reader) (payload, error) {
@@ -157,6 +159,11 @@ func payloadFromEvent(eventName string, r io.Reader) (payload, error) {
 			p.body = body
 		}
 		p.parentID = p.nodeID
+		if u, ok := m["url"].(string); ok {
+			p.url = u
+		} else if u, ok := m["html_url"].(string); ok {
+			p.url = u
+		}
 
 	}
 
@@ -168,7 +175,7 @@ func payloadFromEvent(eventName string, r io.Reader) (payload, error) {
 	}
 
 	if u, ok := event["sender"].(map[string]any); ok {
-		p.userLogin = u["login"].(string)
+		p.user = u["login"].(string)
 	}
 
 	return p, nil
