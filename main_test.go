@@ -29,14 +29,22 @@ func TestPayloadFromEvent(t *testing.T) {
 					"discussion": {
 						"body": "Some body",
 						"title": "Some title",
-						"node_id": "D_kwDOKgkPac4AWfor"
+						"node_id": "D_kwDOKgkPac4AWfor",
+						"html_url": "https://github.com/nikpivkin/chat-guard/discussions/2"
 					},
 					"sender": {
 						"login": "test"
 					}
 				}`,
 			},
-			expected: payload{title: "Some title", body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", userLogin: "test", parentID: "D_kwDOKgkPac4AWfor"},
+			expected: payload{
+				title:    "Some title",
+				body:     "Some body",
+				nodeID:   "D_kwDOKgkPac4AWfor",
+				user:     "test",
+				parentID: "D_kwDOKgkPac4AWfor",
+				url:      "https://github.com/nikpivkin/chat-guard/discussions/2",
+			},
 		},
 		{
 			name: "issue opened",
@@ -54,7 +62,7 @@ func TestPayloadFromEvent(t *testing.T) {
 					}
 				}`,
 			},
-			expected: payload{title: "Some title", body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", userLogin: "test", parentID: "D_kwDOKgkPac4AWfor"},
+			expected: payload{title: "Some title", body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", user: "test", parentID: "D_kwDOKgkPac4AWfor"},
 		},
 		{
 			name: "pull_request opened",
@@ -72,7 +80,7 @@ func TestPayloadFromEvent(t *testing.T) {
 					}
 				}`,
 			},
-			expected: payload{title: "Some title", body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", userLogin: "test", parentID: "D_kwDOKgkPac4AWfor"},
+			expected: payload{title: "Some title", body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", user: "test", parentID: "D_kwDOKgkPac4AWfor"},
 		},
 		{
 			name: "pull_request opened with empty body",
@@ -89,7 +97,7 @@ func TestPayloadFromEvent(t *testing.T) {
 					}
 				}`,
 			},
-			expected: payload{title: "Some title", nodeID: "D_kwDOKgkPac4AWfor", userLogin: "test", parentID: "D_kwDOKgkPac4AWfor"},
+			expected: payload{title: "Some title", nodeID: "D_kwDOKgkPac4AWfor", user: "test", parentID: "D_kwDOKgkPac4AWfor"},
 		},
 		{
 			name: "discussion comment created",
@@ -109,7 +117,7 @@ func TestPayloadFromEvent(t *testing.T) {
 					}
 				}`,
 			},
-			expected: payload{body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", parentID: "some_id", userLogin: "test"},
+			expected: payload{body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", parentID: "some_id", user: "test"},
 		},
 		{
 			name: "issue comment created",
@@ -129,7 +137,7 @@ func TestPayloadFromEvent(t *testing.T) {
 					}
 				}`,
 			},
-			expected: payload{body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", parentID: "some_id", userLogin: "test"},
+			expected: payload{body: "Some body", nodeID: "D_kwDOKgkPac4AWfor", parentID: "some_id", user: "test"},
 		},
 	}
 
