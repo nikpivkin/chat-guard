@@ -1,0 +1,32 @@
+name: "ChatGuard"
+description: "ChatGuard swiftly identifies and manages spam or advertisement content within issues, discussions, and pull requests by utilizing ChatGPT for sentiment analysis, ensuring a clean and focused collaborative environment."
+author: "Nikita Pivkin"
+inputs:
+  openai-api-key:
+    description: "API token for ChatGPT."
+    required: true
+  gpt-model:
+    description: "The chat-gpt model used"
+    required: false
+    default: "gpt-3.5-turbo"
+  gh-token:
+    description: "GitHub personal access token."
+    required: true
+  timeout:
+    description: "Timeout in seconds."
+    required: false
+    default: "60"
+
+runs:
+  using: "docker"
+  image: 'docker://ghcr.io/nikpivkin/chat-guard:latest'
+  args:
+    - '-gpt-model=${{ inputs.gpt-model }}'
+    - '-timeout=${{ inputs.timeout }}'
+  env:
+    OPENAI_API_KEY: ${{ inputs.openai-api-key }}
+    GITHUB_TOKEN: ${{ inputs.gh-token }}
+
+branding:
+  icon: 'moon'
+  color: 'blue'
